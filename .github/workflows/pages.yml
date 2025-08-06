@@ -1,21 +1,57 @@
+# Deploys the site to GitHub Pages whenever you push to the default branch
+# Works for any static TypeScript project that ends in compiled files
+
 name: Deploy to GitHub Pages
+
 on:
   push:
-    branches: [main]          # change if you use a different default branch
+    branches: [main]           # change if your default branch is 'master', 'dev', etc.
+
+env:
+  # 💡 Set this once; every step can reference it.
+  node_version: 22.11.0          # or 18.x — match your local setup
+  build_script: npm run build  # or pnpm build / yarn build
+  output_dir: build             # 'build', 'out', etc.
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      # 1️⃣ Check out your repo
+      - name: Clone source
+        uses: actions/checkout@v4
 
-      # EXAMPLE: Flutter — swap for npm / pnpm / yarn etc.
-      - uses: subosito/flutter-action@v2
+      # 2️⃣ Install Node.js (cached between runs)
+      - name: Set up Node ${{ env.node_version }}
+        uses: actions/setup-node@v4
         with:
-          channel: stable
-      - run: flutter build web --release
+          node-version: ${{ env.node_version }}
+          cache: npm               # change to 'pnpm' or 'yarn' if you use those
 
-      # Publish the build folder to the gh-pages branch
-      - uses: peaceiris/actions-gh-pages@v4
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm ci                # or 'pnpm i --frozen-lockfile' / 'yarn install --immutable'
+
+      # 4️⃣ Build the production site
+      - name: Build website
+        run: ${{ env.build_script }}
+
+      # 5️⃣ Deploy the output folder to the gh-pages branch
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/web          # adjust to your build output
+          publish_dir: ${{ env.output_dir }}
+          publish_branch: gh-pages     # will create the branch if it doesn't exist
+          commit_message: "Deploy: ${{ github.sha }}"
+
+      # Optional: keep only the latest 10 commits on gh-pages to avoid branch bloat
+      # - name: Slim gh-pages history (optional)
+      #   run: |
+      #     git config --global user.email "actions@github.com"
+      #     git config --global user.name  "GitHub Actions"
+      #     git fetch origin gh-pages
+      #     git checkout gh-pages
+      #     git reset --hard HEAD~10
+      #     git push --force
