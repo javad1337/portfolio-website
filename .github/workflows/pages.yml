@@ -1,32 +1,21 @@
-name: Deploy to GitHub Pages        # Appears in the Actions tab
-
-on:                                 # ❶ “When should I run?”
+name: Deploy to GitHub Pages
+on:
   push:
-    branches: [main]                # every git push to main
-
+    branches: [main]          # change if you use a different default branch
 jobs:
-  build:                            # ❷ A single job called “build”
-    runs-on: ubuntu-latest          # use a fresh Linux VM
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-    steps:                          # ❸ Sequential commands in the VM
-      # --- check out your repo ---
-      - name: Clone source
-        uses: actions/checkout@v4   # official GitHub action
-
-      # --- install Flutter ---
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      # EXAMPLE: Flutter — swap for npm / pnpm / yarn etc.
+      - uses: subosito/flutter-action@v2
         with:
-          channel: stable           # grabs the latest stable SDK
+          channel: stable
+      - run: flutter build web --release
 
-      # --- build the website ---
-      - name: Build for web
-        run: flutter build web --release
-        # output appears in build/web/
-
-      # --- publish to GitHub Pages ---
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4   # community action  [oai_citation:1‡GitHub](https://github.com/peaceiris/actions-gh-pages?utm_source=chatgpt.com)
+      # Publish the build folder to the gh-pages branch
+      - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/web              # folder to upload
+          publish_dir: build/web          # adjust to your build output
