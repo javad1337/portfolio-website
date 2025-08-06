@@ -10,7 +10,13 @@ interface App {
 	platforms: string[];
 	downloads: string;
 	rating: number;
+    androidLink: string,
+    iosLink:string,
+
 }
+
+
+
 
 const apps: App[] = [
 	{
@@ -21,6 +27,8 @@ const apps: App[] = [
 		platforms: ['iOS', 'Android'],
 		downloads: '100+',
 		rating: 4.8,
+        androidLink: "",
+        iosLink:"",
 	},
 	{
 		id: 2,
@@ -30,6 +38,8 @@ const apps: App[] = [
 		platforms: ['iOS', 'Android'],
 		downloads: '100+',
 		rating: 4.7,
+        androidLink: "https://play.google.com/store/apps/details?id=com.business.joypolis_app",
+        iosLink:"https://apps.apple.com/us/app/joypolis/id6740851423",
 	},
 ];
 
@@ -200,11 +210,11 @@ const AppShowcase = () => {
 										</div>
 										<div className="flex gap-6">
 											<AppStoreButton className="transform hover:scale-105"
-															href="https://apps.apple.com/us/app/joypolis/id6740851423"
+															href={app.androidLink}
 											/>
 
 											<PlayStoreButton className="transform hover:scale-105"
-															 href="https://play.google.com/store/apps/details?id=com.business.joypolis_app"
+                                                             href={app.iosLink}
 											/>
 										</div>
 
