@@ -45,6 +45,8 @@ jobs:
           publish_dir: ${{ env.output_dir }}
           publish_branch: gh-pages     # will create the branch if it doesn't exist
           commit_message: "Deploy: ${{ github.sha }}"
+          cname: www.javadkhalilov.com
+
 
       # Optional: keep only the latest 10 commits on gh-pages to avoid branch bloat
       # - name: Slim gh-pages history (optional)
