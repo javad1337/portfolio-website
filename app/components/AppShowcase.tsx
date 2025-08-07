@@ -43,56 +43,57 @@ const apps: App[] = [
 	},
 ];
 
-import type { FC } from 'react';
+import React from 'react';
 
+// Apple App Store Button Component
 interface AppStoreButtonProps {
-    href?: string;
     onClick?: () => void;
+    href?: string;
     className?: string;
 }
 
-export const AppStoreButton: FC<AppStoreButtonProps> = ({
-                                                            onClick,
-                                                            href,
-                                                            className = '',
-                                                        }) => {
+const AppStoreButton: React.FC<AppStoreButtonProps> = ({
+                                                           onClick,
+                                                           href,
+                                                           className = ''
+                                                       }) => {
     const buttonContent = (
-        <div
-            className={`
-        inline-flex items-center gap-2 sm:gap-3
-        px-3 py-1.5 sm:px-4 sm:py-2
-        bg-black text-white rounded-lg border border-gray-300
-        hover:bg-gray-800 transition-colors cursor-pointer
-        ${className}
-      `}
-        >
-            {/* Apple logo */}
-            <div className="shrink-0 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-full h-full fill-white">
-                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+        <div className={`
+      inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 
+      bg-black text-white rounded-lg border border-gray-300
+      hover:bg-gray-800 transition-colors cursor-pointer
+      min-h-[56px] max-w-[180px] sm:max-w-none
+      ${className}
+    `}>
+            {/* Apple Logo */}
+            <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-7 sm:h-7 fill-white">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                 </svg>
             </div>
-
-            {/* Text block */}
-            <div className="flex flex-col items-start leading-none">
-                <span className="text-[10px] sm:text-xs">Download on the</span>
-                <span className="text-sm sm:text-lg font-semibold">App Store</span>
+            <div className="flex flex-col items-start min-w-0 flex-1">
+                <span className="text-[10px] sm:text-xs leading-none whitespace-nowrap">Download on the</span>
+                <span className="text-sm sm:text-lg font-semibold leading-tight whitespace-nowrap">App Store</span>
             </div>
         </div>
     );
 
-    return href ? (
-        <a href={href} onClick={onClick} className="inline-block">
-            {buttonContent}
-        </a>
-    ) : (
+    if (href) {
+        return (
+            <a href={href} onClick={onClick} className="inline-block">
+                {buttonContent}
+            </a>
+        );
+    }
+
+    return (
         <button onClick={onClick} className="inline-block">
             {buttonContent}
         </button>
     );
 };
 
-// Google Play Store Button
+// Google Play Store Button Component
 interface PlayStoreButtonProps {
     onClick?: () => void;
     href?: string;
@@ -102,65 +103,54 @@ interface PlayStoreButtonProps {
 const PlayStoreButton: React.FC<PlayStoreButtonProps> = ({
                                                              onClick,
                                                              href,
-                                                             className = '',
+                                                             className = ''
                                                          }) => {
     const buttonContent = (
-        <div
-            className={`
-        inline-flex items-center
-        gap-2 sm:gap-3                     /* tighter gap on phones */
-        px-3 py-1.5 sm:px-4 sm:py-2        /* smaller padding on phones */
-        bg-black text-white rounded-lg border border-gray-300
-        hover:bg-gray-800 transition-colors cursor-pointer
-        ${className}
-      `}
-        >
-            {/* Google Play logo */}
-            <div className="shrink-0 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center">
-                <svg
-                    viewBox="0 0 24 24"
-                    className="w-full h-full fill-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M23 12c0 .75-.42 1.41-1.03 1.75l-5.2 2.89-4.4-4.64 4.4-4.64 5.2 2.89c.61.34 1.03 1 1.03 1.75z"
-                        fill="#fbbc05"
-                    />
-                    <path
-                        d="M12.37 12 1.57 23.39c-.36-.36-.57-.85-.57-1.39v-20c0-.54.21-1.03.57-1.39z"
-                        fill="#4285f4"
-                    />
-                    <path
-                        d="M12.37 12 16.77 16.64 3.97 23.75c-.29.16-.62.25-.97.25-.56 0-1.07-.23-1.43-.61z"
-                        fill="#ea4335"
-                    />
-                    <path
-                        d="M16.77 7.36 12.37 12 1.57.61C1.93.23 2.44 0 3 .0c.35 0 .68.09.97.25z"
-                        fill="#34a853"
-                    />
+        <div className={`
+      inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 
+      bg-black text-white rounded-lg border border-gray-300
+      hover:bg-gray-800 transition-colors cursor-pointer
+      min-h-[56px] max-w-[180px] sm:max-w-none
+      ${className}
+    `}>
+            {/* Google Play Logo */}
+            <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" viewBox="0 0 24 24"
+                     id="GooglePlay" className="w-5 h-5 sm:w-7 sm:h-7">
+                    <path fill="#fbbc05"
+                          d="m23 12c0 .75-.42 1.41-1.03 1.75l-5.2 2.89-4.4-4.64 4.4-4.64 5.2 2.89c.61.34 1.03 1 1.03 1.75z"
+                          className="colorffc107 svgShape"/>
+                    <path fill="#4285f4" d="m12.37 12-10.8 11.39c-.36-.36-.57-.85-.57-1.39v-20c0-.54.21-1.03.57-1.39z"
+                          className="color03a9f4 svgShape"/>
+                    <path fill="#ea4335" d="m12.37 12 4.4 4.64-12.8 7.11c-.29.16-.62.25-.97.25-.56 0-1.07-.23-1.43-.61z"
+                          className="colorf44336 svgShape"/>
+                    <path fill="#34a853" d="m16.77 7.36-4.4 4.64-10.8-11.39c.36-.38.87-.61 1.43-.61.35 0 .68.09.97.25z"
+                          className="color4caf50 svgShape"/>
                 </svg>
             </div>
-
-            {/* Text block */}
-            <div className="flex flex-col items-start leading-none">
-                <span className="text-[10px] sm:text-xs">GET IT ON</span>
-                <span className="text-sm sm:text-lg font-semibold">Google Play</span>
+            <div className="flex flex-col items-start min-w-0 flex-1">
+                <span className="text-[10px] sm:text-xs leading-none whitespace-nowrap">GET IT ON</span>
+                <span className="text-sm sm:text-lg font-semibold leading-tight whitespace-nowrap">Google Play</span>
             </div>
         </div>
     );
 
-    return href ? (
-        <a href={href} onClick={onClick} className="inline-block">
-            {buttonContent}
-        </a>
-    ) : (
+    if (href) {
+        return (
+            <a href={href} onClick={onClick} className="inline-block">
+                {buttonContent}
+            </a>
+        );
+    }
+
+    return (
         <button onClick={onClick} className="inline-block">
             {buttonContent}
         </button>
     );
 };
 
-
+export { AppStoreButton, PlayStoreButton };
 
 // Demo Component
 const AppShowcase = () => {
