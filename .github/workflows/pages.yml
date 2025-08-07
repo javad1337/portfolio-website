@@ -11,7 +11,7 @@ env:
   # 💡 Set this once; every step can reference it.
   node_version: 22.11.0          # or 18.x — match your local setup
   build_script: npm run build  # or pnpm build / yarn build
-  output_dir: dist             # 'build', 'out', etc.
+  output_dir: ./out             # 'build', 'out', etc.
 
 jobs:
   build:
