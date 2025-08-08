@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 		siteName: 'Javad Khalilov',
 		images: [
 			{
-				url: 'https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/letter_J_red-512.png',
+				url: 'https://www.javadkhalilov.com/logo.png',
 				width: 1200,
 				height: 630,
 				alt: 'Javad Khalilov',
