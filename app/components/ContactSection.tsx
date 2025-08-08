@@ -41,7 +41,7 @@ const ContactSection = () => {
 							Get in Touch
 						</a>
 						<a
-							href="https://drive.google.com/file/d/1eoM0rC87fLJYgiKQYWSeLMONgBLdLxKX/view?usp=sharing"
+                            href="/Javad Khalilov - CV.pdf"
 							target="_blank"
 							className="px-8 py-3 bg-gray-800 rounded-full font-medium hover:bg-gray-700 transition-colors inline-flex items-center justify-center gap-2 border border-gray-700"
 						>
