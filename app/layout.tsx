@@ -36,16 +36,16 @@ export const metadata: Metadata = {
 	authors: [{ name: 'Javad Khalilov' }],
 	creator: 'Javad Khalilov',
 	openGraph: {
-		title: 'Javad Khalilov - Mobile Developer Portfolio',
+		title: 'Javad Khalilov',
 		description: 'Passionate mobile developer creating exceptional iOS and Android applications. Explore my projects and app development expertise.',
-		url: 'https://your-domain.com',
-		siteName: 'Javad Khalilov - Portfolio',
+		url: 'https://javadkhalilov.com',
+		siteName: 'Javad Khalilov',
 		images: [
 			{
-				url: '/og-image.jpg',
+				url: './icons/logo.jpg',
 				width: 1200,
 				height: 630,
-				alt: 'Javad Khalilov - Mobile Developer Portfolio',
+				alt: 'Javad Khalilov',
 			},
 		],
 		locale: 'en_US',
