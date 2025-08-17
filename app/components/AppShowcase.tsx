@@ -22,7 +22,7 @@ const apps: App[] = [
 	{
 		id: 1,
 		name: 'PsyAtlas',
-		description: 'Turning “stress kills” into clear insight—what your body signals through pain.',
+		description: 'Linking symptoms with their mental causes and finding ways for cause resolution.',
         technologies: ['Flutter', 'Dart', 'Firebase'],
 		platforms: ['iOS', 'Android'],
 		downloads: '100+',
