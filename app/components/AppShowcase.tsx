@@ -32,14 +32,14 @@ const apps: App[] = [
 	},
 	{
 		id: 2,
-		name: 'Joypolis',
-		description: 'Loyalty application for the Joypolis entertainment center',
+		name: 'Dr. Che Burgers',
+		description: 'Loyalty application for the Dr. Che Burgers fast food restaurant.',
 		technologies: ['Flutter', 'Dart', 'Firebase'],
 		platforms: ['iOS', 'Android'],
 		downloads: '100+',
 		rating: 4.7,
         androidLink: "https://play.google.com/store/apps/details?id=com.business.joypolis_app",
-        iosLink:"https://apps.apple.com/us/app/joypolis/id6740851423",
+        iosLink:"https://apps.apple.com/us/app/dr-che-burgers/id6740851423",
 	},
 ];
 
