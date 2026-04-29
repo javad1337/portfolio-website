@@ -50,19 +50,22 @@ interface AppStoreButtonProps {
     onClick?: () => void;
     href?: string;
     className?: string;
+    isComingSoon?: boolean;
 }
 
 const AppStoreButton: React.FC<AppStoreButtonProps> = ({
                                                            onClick,
                                                            href,
-                                                           className = ''
+                                                           className = '',
+                                                           isComingSoon = false,
                                                        }) => {
     const buttonContent = (
         <div className={`
       inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 
       bg-black text-white rounded-lg border border-gray-300
-      hover:bg-gray-800 transition-colors cursor-pointer
+      transition-colors
       min-h-[56px] max-w-[180px] sm:max-w-none
+      ${isComingSoon ? 'cursor-not-allowed opacity-80' : 'cursor-pointer hover:bg-gray-800'}
       ${className}
     `}>
             {/* Apple Logo */}
@@ -72,13 +75,15 @@ const AppStoreButton: React.FC<AppStoreButtonProps> = ({
                 </svg>
             </div>
             <div className="flex flex-col items-start min-w-0 flex-1">
-                <span className="text-[10px] sm:text-xs leading-none whitespace-nowrap">Download on the</span>
+                <span className="text-[10px] sm:text-xs leading-none whitespace-nowrap">
+                    {isComingSoon ? 'COMING SOON TO' : 'Download on the'}
+                </span>
                 <span className="text-sm sm:text-lg font-semibold leading-tight whitespace-nowrap">App Store</span>
             </div>
         </div>
     );
 
-    if (href) {
+    if (href && !isComingSoon) {
         return (
             <a href={href} onClick={onClick} className="inline-block">
                 {buttonContent}
@@ -87,7 +92,7 @@ const AppStoreButton: React.FC<AppStoreButtonProps> = ({
     }
 
     return (
-        <button onClick={onClick} className="inline-block">
+        <button type="button" onClick={onClick} className="inline-block" disabled={isComingSoon}>
             {buttonContent}
         </button>
     );
@@ -98,19 +103,22 @@ interface PlayStoreButtonProps {
     onClick?: () => void;
     href?: string;
     className?: string;
+    isComingSoon?: boolean;
 }
 
 const PlayStoreButton: React.FC<PlayStoreButtonProps> = ({
                                                              onClick,
                                                              href,
-                                                             className = ''
+                                                             className = '',
+                                                             isComingSoon = false,
                                                          }) => {
     const buttonContent = (
         <div className={`
       inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 
       bg-black text-white rounded-lg border border-gray-300
-      hover:bg-gray-800 transition-colors cursor-pointer
+      transition-colors
       min-h-[56px] max-w-[180px] sm:max-w-none
+      ${isComingSoon ? 'cursor-not-allowed opacity-80' : 'cursor-pointer hover:bg-gray-800'}
       ${className}
     `}>
             {/* Google Play Logo */}
@@ -129,13 +137,15 @@ const PlayStoreButton: React.FC<PlayStoreButtonProps> = ({
                 </svg>
             </div>
             <div className="flex flex-col items-start min-w-0 flex-1">
-                <span className="text-[10px] sm:text-xs leading-none whitespace-nowrap">GET IT ON</span>
+                <span className="text-[10px] sm:text-xs leading-none whitespace-nowrap">
+                    {isComingSoon ? 'COMING SOON TO' : 'GET IT ON'}
+                </span>
                 <span className="text-sm sm:text-lg font-semibold leading-tight whitespace-nowrap">Google Play</span>
             </div>
         </div>
     );
 
-    if (href) {
+    if (href && !isComingSoon) {
         return (
             <a href={href} onClick={onClick} className="inline-block">
                 {buttonContent}
@@ -144,7 +154,7 @@ const PlayStoreButton: React.FC<PlayStoreButtonProps> = ({
     }
 
     return (
-        <button onClick={onClick} className="inline-block">
+        <button type="button" onClick={onClick} className="inline-block" disabled={isComingSoon}>
             {buttonContent}
         </button>
     );
@@ -213,12 +223,14 @@ const AppShowcase = () => {
 											))}
 										</div>
 										<div className="flex gap-6">
-											<AppStoreButton className="transform hover:scale-105"
+											<AppStoreButton className={app.iosLink ? "transform hover:scale-105" : ""}
 															href={app.iosLink}
+                                                            isComingSoon={!app.iosLink}
 											/>
 
-											<PlayStoreButton className="transform hover:scale-105"
+											<PlayStoreButton className={app.androidLink ? "transform hover:scale-105" : ""}
                                                              href={app.androidLink}
+                                                             isComingSoon={!app.androidLink}
 											/>
 										</div>
 
