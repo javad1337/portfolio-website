@@ -27,8 +27,8 @@ const apps: App[] = [
 		platforms: ['iOS', 'Android'],
 		downloads: '100+',
 		rating: 4.8,
-        androidLink: "",
-        iosLink:"",
+        androidLink: "https://play.google.com/store/apps/details?id=com.psyatlas.app",
+        iosLink:"https://apps.apple.com/us/app/psyatlas-mind-to-body-therapy/id6499073786",
 	},
 	{
 		id: 2,
