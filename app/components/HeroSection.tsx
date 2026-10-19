@@ -32,7 +32,7 @@ const HeroSection = () => {
 					{[
 						{
 							label: 'Apps Published',
-							value: '2',
+							value: '3',
 							icon: (
 								<svg className="w-8 h-8 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
 									<path d="M17,1H7A2,2 0 0,0 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3A2,2 0 0,0 17,1M17,19H7V5H17V19M16,13H8V11H16V13M16,9H8V7H16V9M7,24H9V22H7V24M11,24H13V22H11V24M15,24H17V22H15V24" />

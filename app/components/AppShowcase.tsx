@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 
 
 interface App {
@@ -8,8 +9,9 @@ interface App {
 	description: string;
 	technologies: string[];
 	platforms: string[];
-	downloads: string;
-	rating: number;
+	downloads?: string;
+	rating?: number;
+	iconSrc: string;
     androidLink: string,
     iosLink:string,
 
@@ -20,8 +22,19 @@ interface App {
 
 const apps: App[] = [
 	{
+		id: 3,
+		name: 'Book & Play',
+		description: 'A sports community app to book courts, find players at your skill level, connect with coaches, and join local tournaments.',
+		technologies: ['Flutter', 'Dart', 'Node.js'],
+		platforms: ['iOS', 'Android'],
+		iconSrc: '/book-and-play.png',
+		androidLink: 'https://play.google.com/store/apps/details?id=com.bookandplay.bookandplay',
+		iosLink: 'https://apps.apple.com/us/app/book-play/id6800078103',
+	},
+	{
 		id: 1,
 		name: 'PsyAtlas',
+		iconSrc: '/psyatlas.png',
 		description: 'Linking symptoms with their mental causes and finding ways for cause resolution.',
         technologies: ['Flutter', 'Dart', 'Firebase'],
 		platforms: ['iOS', 'Android'],
@@ -33,6 +46,7 @@ const apps: App[] = [
 	{
 		id: 2,
 		name: 'Dr. Che Burgers',
+		iconSrc: '/dr-che-burgers.png',
 		description: 'Loyalty application for the Dr. Che Burgers fast food restaurant.',
 		technologies: ['Flutter', 'Dart', 'Firebase'],
 		platforms: ['iOS', 'Android'],
@@ -175,24 +189,15 @@ const AppShowcase = () => {
 								<div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
 									{/* App Icon */}
 									<div className="w-16 sm:w-20 h-16 sm:h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 p-1 flex-shrink-0">
-										<div className="w-full h-full rounded-xl bg-gray-900 flex items-center justify-center overflow-hidden relative">
-											{app.id === 1 ? (
-												<svg className="w-10 h-10 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-                                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
-
-												</svg>
-											) : (
-												<svg className="w-10 h-10 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-													/>
-												</svg>
-											)}
+										<div className="w-full h-full rounded-xl bg-white flex items-center justify-center overflow-hidden relative">
+											<Image
+												src={app.iconSrc}
+												alt={`${app.name} app icon`}
+												width={80}
+												height={80}
+												className="w-full h-full object-contain"
+												unoptimized
+											/>
 											{/* Animated Glow Effect */}
 											<div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-purple-500/0 animate-shimmer"></div>
 										</div>
@@ -212,16 +217,18 @@ const AppShowcase = () => {
 										<p className="text-gray-400 mb-4 text-center sm:text-left">{app.description}</p>
 
 										{/* Technologies */}
-										<div className="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
-											{app.technologies.map((tech) => (
-												<span
-													key={tech}
-													className="px-3 py-1 text-sm rounded-full bg-gray-800 text-gray-400 border border-gray-700/50 group-hover:border-gray-600/50 group-hover:text-gray-300 transition-colors whitespace-nowrap"
-												>
-													{tech}
-												</span>
-											))}
-										</div>
+										{app.technologies.length > 0 && (
+											<div className="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
+												{app.technologies.map((tech) => (
+													<span
+														key={tech}
+														className="px-3 py-1 text-sm rounded-full bg-gray-800 text-gray-400 border border-gray-700/50 group-hover:border-gray-600/50 group-hover:text-gray-300 transition-colors whitespace-nowrap"
+													>
+														{tech}
+													</span>
+												))}
+											</div>
+										)}
 										<div className="flex gap-6">
 											<AppStoreButton className={app.iosLink ? "transform hover:scale-105" : ""}
 															href={app.iosLink}
